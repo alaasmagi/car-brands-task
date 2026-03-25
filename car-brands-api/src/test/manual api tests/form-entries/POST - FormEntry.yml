@@ -1,0 +1,28 @@
+info:
+  name: POST - FormEntry
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://localhost:8080/api/form-entries
+  body:
+    type: json
+    data: |-
+      {
+        "fullName": "FULLNAME VALUE",
+        "contactPhone": "CONTACTPHONE VALUE",
+        "validDrivingLicense": "BOOLEAN DRIVING LICENSE VALUE",
+        "selectedCarIds": [
+          "SELECTED CAR UUID VALUE",
+          "SELECTED CAR UUID VALUE",
+          "SELECTED CAR UUID VALUE"
+        ]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
