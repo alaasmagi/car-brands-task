@@ -96,6 +96,69 @@ class CarControllerIntegrationTest {
         assertTrue(response.body().contains("\"name\":\"Audi\""));
     }
 
+    @Test
+    void getAllCarsReturnsSavedCars() throws Exception {
+        CarEntity bmw = new CarEntity();
+        bmw.setName("BMW");
+        carJpaRepository.save(bmw);
+
+        CarEntity audi = new CarEntity();
+        audi.setName("Audi");
+        carJpaRepository.save(audi);
+
+        HttpResponse<String> response = sendRequest("GET", "/api/cars", null);
+
+        assertEquals(200, response.statusCode());
+        assertTrue(response.body().contains("\"name\":\"BMW\""));
+        assertTrue(response.body().contains("\"name\":\"Audi\""));
+    }
+
+    @Test
+    void getMissingCarReturnsNotFound() throws Exception {
+        HttpResponse<String> response = sendRequest("GET", "/api/cars/" + UUID.randomUUID(), null);
+
+        assertEquals(404, response.statusCode());
+    }
+
+    @Test
+    void updateCarReturnsUpdatedCar() throws Exception {
+        CarEntity entity = new CarEntity();
+        entity.setName("Audi");
+        CarEntity saved = carJpaRepository.save(entity);
+
+        HttpResponse<String> response = sendJsonRequest("PUT", "/api/cars/" + saved.getId(), """
+                {
+                  "name": "Audi Sport"
+                }
+                """);
+
+        assertEquals(200, response.statusCode());
+        assertTrue(response.body().contains("\"id\":\"" + saved.getId() + "\""));
+        assertTrue(response.body().contains("\"name\":\"Audi Sport\""));
+        assertEquals("Audi Sport", carJpaRepository.findById(saved.getId()).orElseThrow().getName());
+    }
+
+    @Test
+    void deleteExistingCarReturnsNoContent() throws Exception {
+        CarEntity entity = new CarEntity();
+        entity.setName("Volvo");
+        CarEntity saved = carJpaRepository.save(entity);
+
+        HttpResponse<String> response = sendRequest("DELETE", "/api/cars/" + saved.getId(), null);
+
+        assertEquals(204, response.statusCode());
+        assertTrue(carJpaRepository.findById(saved.getId()).isEmpty());
+    }
+
+    @Test
+    void invalidCarIdReturnsBadRequestWithApiErrorResponse() throws Exception {
+        HttpResponse<String> response = sendRequest("GET", "/api/cars/not-a-uuid", null);
+
+        assertEquals(400, response.statusCode());
+        assertTrue(response.body().contains("\"status\":400"));
+        assertTrue(response.body().contains("\"error\":\"Bad Request\""));
+    }
+
     private HttpResponse<String> sendJsonRequest(String method, String path, String body) throws IOException, InterruptedException {
         return sendRequest(method, path, body);
     }
