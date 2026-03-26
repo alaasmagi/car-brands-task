@@ -130,10 +130,78 @@ public class FormEntry {
 }
 ```
 
-#### Service layer
-* **CarService** -
-* **FormEntryService** -
+#### Application layer
+* **CarService** - responsible for validating car data, enforcing business rules, and coordinating CRUD operations via repository contracts.
+* **FormEntryService** - responsible for validating form input, resolving selected car relations, and coordinating CRUD operations for form entries.
+
+#### Data access layer
+* **CarRepository** - responsible for persistence operations for cars and mapping between domain objects and database entities.
+* **FormEntryRepository** - responsible for persistence operations for form entries and mapping of many-to-many relationships with cars.
 
 #### DTOs
 DTOs are used to separate external data structures from the core domain model. In the Web layer, request and response DTOs define the API contract and are mapped to domain objects before reaching the service layer. In the DataAccess layer, persistence models are mapped separately so database-specific structures do not leak into the domain or web layers. This keeps the architecture clean, reduces coupling between layers, and makes the application easier to maintain and evolve.
 
+
+#### Endpoints
+* **GET** - `/api/cars`: Fetches all cars.
+* **GET** - `/api/cars/{id}`: Fetches a single car by ID.
+* **POST** - `/api/cars`: Creates a new car.
+* **PUT** - `/api/cars/{id}`: Updates an existing car.
+* **DELETE** - `/api/cars/{id}`: Deletes a car.
+
+* **GET** - `/api/form-entries/{id}`: Fetches a single form entry by ID, including resolved selected cars.
+* **POST** - `/api/form-entries`: Creates a new form entry.
+* **PUT** - `/api/form-entries/{id}`: Updates an existing form entry.
+* **DELETE** - `/api/form-entries/{id}`: Deletes a form entry.
+
+### Frontend structure
+
+```
+src
+  ├── App.css
+  ├── index.css
+  ├── main.tsx
+  ├── api
+  │   ├── cars.ts
+  │   ├── errors.ts
+  │   ├── form-entries.ts
+  │   ├── http-client.ts
+  │   ├── index.ts
+  │   └── request.ts
+  ├── components
+  │   ├── Form.tsx
+  │   └── FormCard.tsx
+  ├── models
+  │   └── index.ts
+  ├── routing
+  │   └── router.tsx
+  ├── state
+  │   ├── index.ts
+  │   ├── query-client.ts
+  │   ├── query-keys.ts
+  │   ├── use-car-options-query.ts
+  │   ├── use-form-entry-query.ts
+  │   └── use-session-form-entries.ts
+  ├── types
+  │   ├── api-error.ts
+  │   ├── car.ts
+  │   ├── form-entry.ts
+  │   └── index.ts
+  ├── utils
+  │   ├── index.ts
+  │   ├── strings.ts
+  │   └── ui.ts
+  └── views
+	  ├── Create.tsx
+	  ├── Details.tsx
+	  ├── Edit.tsx
+	  └── Home.tsx
+```
+
+* **API** - Axios-based HTTP client modules for backend communication.
+* **Routing** - central route declarations for Home/Create/Details/Edit flow.
+* **State** - combines TanStack Query for server data operations with a session-scoped client state layer for locally managed entries.
+* **Types** - DTO and model typing for safer API and UI integration.
+* **Utils** - localized strings and helper utilities for UI logic.
+
+  
