@@ -9,8 +9,10 @@ export function FormCard({ entry, orderNumber }: FormCardProps) {
         <div className="d-flex justify-content-between align-items-start gap-3">
           <div>
             <div className="d-flex align-items-center gap-2 mb-2">
-              <span className="small text-body-secondary">#{orderNumber}</span>
-              <h2 className="h5 card-title mb-0">{entry.fullName}</h2>
+              <h2 className="h5 card-title mb-0">
+                <span className="h5 text-body-secondary me-2">#{orderNumber}</span>
+                {entry.fullName}
+              </h2>
             </div>
             <p className="card-text mb-1">
               <strong>{STRINGS.form.contactPhone}:</strong>
