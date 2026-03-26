@@ -9,6 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.test.annotation.DirtiesContext;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,6 +34,9 @@ class CarRepositoryTest {
 
     @Autowired
     private CarJpaRepository carJpaRepository;
+
+    @Autowired
+    private DataSource dataSource;
 
     @BeforeEach
     void setUp() {
@@ -93,6 +100,23 @@ class CarRepositoryTest {
         UUID missingId = UUID.randomUUID();
 
         assertThrows(JpaObjectRetrievalFailureException.class, () -> carRepository.delete(missingId));
+    }
+
+    @Test
+    void sqliteStoresUuidAndDateTimeAsText() throws Exception {
+        Car saved = carRepository.save(createCar("BMW"));
+
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(
+                     "select typeof(id) as id_type, typeof(created_at) as created_at_type, typeof(updated_at) as updated_at_type " +
+                             "from cars where id = '" + saved.getId() + "'"
+            )) {
+            assertTrue(resultSet.next());
+            assertEquals("text", resultSet.getString("id_type"));
+            assertEquals("integer", resultSet.getString("created_at_type"));
+            assertEquals("integer", resultSet.getString("updated_at_type"));
+        }
     }
 
     private Car createCar(String name) {

@@ -8,10 +8,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -40,6 +45,9 @@ class FormEntryRepositoryTest {
 
     @Autowired
     private CarJpaRepository carJpaRepository;
+
+    @Autowired
+    private DataSource dataSource;
 
     @BeforeEach
     void setUp() {
@@ -100,6 +108,37 @@ class FormEntryRepositoryTest {
         UUID missingId = UUID.randomUUID();
 
         assertThrows(JpaObjectRetrievalFailureException.class, () -> formEntryRepository.delete(missingId));
+    }
+
+    @Test
+    void sqliteStoresFormEntryAndJoinTableIdsAsText() throws Exception {
+        Car selectedCar = carRepository.save(createCar("BMW"));
+        FormEntry saved = formEntryRepository.save(createFormEntry(selectedCar.getId()));
+        formEntryJpaRepository.flush();
+
+        Connection connection = DataSourceUtils.getConnection(dataSource);
+
+        try (Statement statement = connection.createStatement();
+             ResultSet formEntryResult = statement.executeQuery(
+                     "select typeof(id) as id_type, typeof(created_at) as created_at_type, typeof(updated_at) as updated_at_type " +
+                             "from form_entries limit 1"
+             )) {
+            assertTrue(formEntryResult.next());
+            assertEquals("text", formEntryResult.getString("id_type"));
+            assertEquals("integer", formEntryResult.getString("created_at_type"));
+            assertEquals("integer", formEntryResult.getString("updated_at_type"));
+        }
+
+        try (Statement statement = connection.createStatement();
+             ResultSet joinTableResult = statement.executeQuery(
+                     "select typeof(form_entry_id) as form_entry_id_type, typeof(car_id) as car_id_type from car_form_entry"
+             )) {
+            assertTrue(joinTableResult.next());
+            assertEquals("text", joinTableResult.getString("form_entry_id_type"));
+            assertEquals("text", joinTableResult.getString("car_id_type"));
+        }
+
+        DataSourceUtils.releaseConnection(connection, dataSource);
     }
 
     private Car createCar(String name) {
