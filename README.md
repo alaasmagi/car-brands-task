@@ -1,1 +1,41 @@
 # car-brands-task
+
+## Short description
+* UI language: Estonian
+* Development year: **2026**
+* Languages and technologies: **Backend: Spring Boot, Java, JPA, SQLite & Frontend: React, TypeScript**
+
+## How to run
+### Prerequisites
+
+* Java SDK 25 LTS
+* Node.js 
+* Modern web browser
+
+Backend should have .env file in the backend root folder `/car-brands-api` which has following content:
+```bash
+SERVER_PORT=<your-server-port>
+FRONTEND_URL=<your-frontend-url>
+```
+The example has been provided in `/car-brands-api/.env.example`
+
+Frontend should also have .env file in the frontend root folder `/car-brands-client` which has following content:
+```bash
+VITE_API_BASE_URL=<your-server-url>/api
+VITE_FRONTEND_URL=<your-frontend-url>
+```
+The example has been provided in `/car-brands-client/.env.example`
+
+8080 is the default port on which the backend runs. 5173 is the default port on which the frontend runs.
+
+### Running the app
+
+After meeting all prerequisites above - 
+* backend can be run via terminal/cmd open in the `/car-brands-api` folder by executing command:  
+```bash
+./gradlew bootRun
+```
+* frontend can be run via terminal/cmd open in the `/car-brands-client` folder by executing command:  
+```bash
+npm i; npm run dev 
+```
