@@ -5,7 +5,39 @@
 * Development year: **2026**
 * Languages and technologies: **Backend: Spring Boot, Java, JPA, SQLite & Frontend: React, TypeScript**
 
-## How to run
+## How to run - the easy way
+### Prerequisites
+
+* Docker
+* Modern web browser
+
+The project includes a root-level `docker-compose.yml` file which starts both the backend and the frontend together.
+
+Optional environment variables can be provided in your shell or in a root `.env` file before starting Docker:
+```bash
+API_PORT=8080
+API_INTERNAL_PORT=8080
+FRONTEND_PORT=5173
+FRONTEND_URL=http://localhost:5173
+VITE_API_BASE_URL=http://localhost:8080/api
+VITE_FRONTEND_URL=http://localhost:5173
+```
+If you do not provide them, Docker Compose uses the default values shown above.
+
+### Running the app
+
+To build and start the full application stack, run from the project root:
+```bash
+docker compose up --build
+```
+
+After startup:
+* frontend is available at `http://localhost:5173`
+* backend is available at `http://localhost:8080`
+
+The SQLite database is stored in a Docker volume called `api-data`, so backend data persists between container restarts.
+
+## How to run - the normal way
 ### Prerequisites
 
 * Java SDK 25 LTS
