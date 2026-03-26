@@ -1,5 +1,4 @@
 export { httpClient } from './http-client';
-export type { ApiClientError } from './errors';
 export { toApiClientError } from './errors';
 
 export {

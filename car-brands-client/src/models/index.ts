@@ -7,6 +7,14 @@ export const EMPTY_FORM_ENTRY_VALUES: FormEntryRequestDto = {
   selectedCarIds: [],
 };
 
+export interface ApiClientError {
+  status: number | null;
+  message: string;
+  details: string[];
+  timestamp: string | null;
+  raw: unknown;
+}
+
 export interface CarSelectOption {
   id: UUID;
   name: string;

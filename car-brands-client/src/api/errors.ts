@@ -1,13 +1,6 @@
 import axios from 'axios';
 import type { ApiErrorResponse } from '../types';
-
-export interface ApiClientError {
-  status: number | null;
-  message: string;
-  details: string[];
-  timestamp: string | null;
-  raw: unknown;
-}
+import type { ApiClientError } from '../models';
 
 function isApiErrorResponse(data: unknown): data is ApiErrorResponse {
   if (!data || typeof data !== 'object') {

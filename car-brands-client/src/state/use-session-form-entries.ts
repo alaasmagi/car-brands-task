@@ -6,10 +6,7 @@ import { QUERY_KEYS } from './query-keys';
 
 const EMPTY_FORM_ENTRIES: FormEntryDto[] = [];
 
-function addOrReplaceFormEntry(
-  previous: FormEntryDto[] | undefined,
-  createdEntry: FormEntryDto,
-): FormEntryDto[] {
+function addOrReplaceFormEntry(previous: FormEntryDto[] | undefined, createdEntry: FormEntryDto): FormEntryDto[] {
   const current = previous ?? EMPTY_FORM_ENTRIES;
   const withoutCreated = current.filter((entry) => entry.id !== createdEntry.id);
 

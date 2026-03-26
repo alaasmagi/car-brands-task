@@ -4,10 +4,7 @@ import { getFormEntryById } from '../api';
 import type { FormEntryDto } from '../types';
 import { QUERY_KEYS } from './query-keys';
 
-function addOrReplaceFormEntry(
-  previous: FormEntryDto[] | undefined,
-  nextEntry: FormEntryDto,
-): FormEntryDto[] {
+function addOrReplaceFormEntry(previous: FormEntryDto[] | undefined, nextEntry: FormEntryDto): FormEntryDto[] {
   const current = previous ?? [];
   const withoutUpdated = current.filter((entry) => entry.id !== nextEntry.id);
 
