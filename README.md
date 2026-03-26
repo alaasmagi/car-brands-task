@@ -47,6 +47,7 @@ npm i; npm run dev
 <img width="1320" height="314" alt="image" src="https://github.com/user-attachments/assets/ffb20fab-2afb-4645-a3d7-c8c2f70586a3" />
 
 * **Many-to-Many relationship via 2xOne-to-Many relatioships**- multiple form entries can be linked to multiple cars. The join-table is a result of Java's `@ManyToMany` mapping between the Car and FormEntry entities.
+* Database dump file `database_dump.sql` is in the root of the project.
 
 ### Backend structure
 
