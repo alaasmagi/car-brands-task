@@ -103,3 +103,67 @@ car_brands_api
             └── FormEntryController.java
 ```
 
+#### Domain layer
+
+* **Car:**
+
+```java
+@Getter
+@Setter
+public class Car {
+    private UUID id;
+    private String name;
+    private UUID parentId;
+}
+```
+
+* **FormEntry**
+```java
+@Getter
+@Setter
+public class FormEntry {
+    private UUID id;
+    private String fullName;
+    private String contactPhone;
+    private boolean validDrivingLicense;
+    private List<UUID> selectedCarIds;
+}
+```
+
+#### Service layer
+* **CarService** -
+* **FormEntryService** -
+
+#### DTOs
+
+graph TD
+    subgraph Web_Layer ["Web Layer"]
+        A[Web DTOs / API Responses]
+        B[DTO Mapper]
+    end
+
+    subgraph Service_Layer ["Service Layer"]
+        C[Domain / Business Logic]
+    end
+
+    subgraph Data_Access_Layer ["Data Access Layer"]
+        D[DTO Mapper]
+        E[Entities / Data Access DTOs]
+    end
+
+    %% Flow of data
+    A <--> B
+    B <--> C
+    C <--> D
+    D <--> E
+
+    %% Styling
+    style Web_Layer fill:#e0f7fa,stroke:#00acc1
+    style Service_Layer fill:#fff9c4,stroke:#fbc02d
+    style Data_Access_Layer fill:#fce4ec,stroke:#d81b60
+    style A fill:#a5d6a7
+    style C fill:#a5d6a7
+    style E fill:#a5d6a7
+    style B fill:#80deea
+    style D fill:#80deea
+
