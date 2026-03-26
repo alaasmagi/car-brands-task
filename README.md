@@ -135,35 +135,6 @@ public class FormEntry {
 * **FormEntryService** -
 
 #### DTOs
+<img width="473" height="770" alt="image" src="https://github.com/user-attachments/assets/323da765-392a-4a8a-8766-df8ca320f933" />
 
-graph TD
-    subgraph Web_Layer ["Web Layer"]
-        A[Web DTOs / API Responses]
-        B[DTO Mapper]
-    end
-
-    subgraph Service_Layer ["Service Layer"]
-        C[Domain / Business Logic]
-    end
-
-    subgraph Data_Access_Layer ["Data Access Layer"]
-        D[DTO Mapper]
-        E[Entities / Data Access DTOs]
-    end
-
-    %% Flow of data
-    A <--> B
-    B <--> C
-    C <--> D
-    D <--> E
-
-    %% Styling
-    style Web_Layer fill:#e0f7fa,stroke:#00acc1
-    style Service_Layer fill:#fff9c4,stroke:#fbc02d
-    style Data_Access_Layer fill:#fce4ec,stroke:#d81b60
-    style A fill:#a5d6a7
-    style C fill:#a5d6a7
-    style E fill:#a5d6a7
-    style B fill:#80deea
-    style D fill:#80deea
 
