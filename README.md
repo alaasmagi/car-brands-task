@@ -224,7 +224,7 @@ SQLite was chosen to keep setup simple and lightweight for local development and
 The backend follows a layered architecture with clear separation of concerns: domain models contain core business data, application services hold business logic, repositories isolate persistence concerns, and web controllers expose HTTP endpoints. Additional DTO mapping layers are used to decouple API and persistence shapes from domain objects. This structure improves maintainability and makes refactoring safer.
 
 ### Frontend
-The frontend is implemented as a focused React SPA. It uses React Router for a clear CRUD navigation flow and React Query for asynchronous data fetching and mutation state management. The UI is component-driven and keeps form logic reusable across create and edit screens. Estonian localization strings are centralized to maintain consistency.
+The frontend is implemented as a focused React SPA. It uses React Router for a clear CRUD navigation flow and TanStack Query for asynchronous data fetching and mutation state management. The UI is component-driven and keeps form logic reusable across create and edit screens. Estonian localization strings are centralized to maintain consistency. Customisation is done using Bootstrap and, therefore, the UI is responsive (mobile phone friendly).
 
 ## Features
 
@@ -287,12 +287,17 @@ Manual API tests are provided in `/car-brands-api/src/test/manual api tests`, co
 ## Visuals
 
 ### Home view
+<img width="1728" height="1117" alt="image" src="https://github.com/user-attachments/assets/c7fb6bbc-3599-4e1f-ab0e-8412d20bf958" />
 
 ### Create view
+<img width="1728" height="1117" alt="image" src="https://github.com/user-attachments/assets/4b1b8319-29c7-4c9f-8f31-c888f549dad3" />
 
 ### Details view
+<img width="1728" height="1117" alt="image" src="https://github.com/user-attachments/assets/1ce34f83-211a-4320-98b2-5c6291b6dba6" />
 
 ### Edit view
+<img width="1728" height="1117" alt="image" src="https://github.com/user-attachments/assets/5a21ce42-002e-4f01-938a-bf5702cafefb" />
+
 
 ## Improvements & scaling possibilities
 
