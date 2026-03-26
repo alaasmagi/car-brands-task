@@ -303,3 +303,6 @@ As the amount of car and form-entry data grows, API endpoints should support pag
 
 ### Audit trail and versioning
 For production-like workflows, add change history for form entries (who changed what and when). This improves observability and supports compliance and rollback scenarios.
+
+## Personal opinion
+Although my primary backend stack is C# and ASP.NET, I intentionally explore other languages and frameworks to broaden my understanding and strengthen transferable engineering skills. This project reinforces my view that strong software development is driven more by problem-solving, architecture thinking, and clarity than by one specific technology stack.
