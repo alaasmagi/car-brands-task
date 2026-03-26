@@ -283,4 +283,23 @@ Controller integration tests verify HTTP layer behavior end-to-end (request hand
 ### Manual API tests (via Bruno)
 Manual API tests are provided in `/car-brands-api/src/test/manual api tests`, covering both `cars` and `form-entries` endpoints via an OpenCollection setup.
 
-  
+## Visuals
+
+### Home view
+
+### Create view
+
+### Details view
+
+### Edit view
+
+## Improvements & scaling possibilities
+
+### Authentication and authorization
+Introduce proper user accounts and role-based access (for example admin/editor/viewer) using JWT and refresh tokens. This would make write operations secure and traceable in multi-user environments.
+
+### Server-side pagination and filtering
+As the amount of car and form-entry data grows, API endpoints should support pagination, sorting, and richer filtering to improve performance and user experience.
+
+### Audit trail and versioning
+For production-like workflows, add change history for form entries (who changed what and when). This improves observability and supports compliance and rollback scenarios.
