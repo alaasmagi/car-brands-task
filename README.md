@@ -47,3 +47,59 @@ npm i; npm run dev
 <img width="1320" height="314" alt="image" src="https://github.com/user-attachments/assets/ffb20fab-2afb-4645-a3d7-c8c2f70586a3" />
 
 * **Many-to-Many relationship via 2xOne-to-Many relatioships**- multiple form entries can be linked to multiple cars. The join-table is a result of Java's `@ManyToMany` mapping between the Car and FormEntry entities.
+
+### Backend structure
+
+```
+car_brands_api
+    ├── Application.java
+    ├── application
+    │   ├── CarService.java
+    │   └── FormEntryService.java
+    ├── config
+    │   ├── database
+    │   │   └── DbInitializer.java
+    │   └── web
+    │       └── SecurityConfig.java
+    ├── contract
+    │   ├── application
+    │   │   ├── ICarService.java
+    │   │   └── IFormEntryService.java
+    │   └── data_access
+    │       ├── CarJpaRepository.java
+    │       ├── ICarRepository.java
+    │       ├── IFormEntryJpaRepository.java
+    │       ├── IFormEntryRepository.java
+    │       └── IRepository.java
+    ├── data_access
+    │   ├── CarRepository.java
+    │   └── FormEntryRepository.java
+    ├── domain
+    │   ├── Car.java
+    │   └── FormEntry.java
+    ├── dto
+    │   ├── data_access
+    │   │   ├── dto
+    │   │   │   ├── BaseEntity.java
+    │   │   │   ├── CarEntity.java
+    │   │   │   └── FormEntryEntity.java
+    │   │   └── mapper
+    │   │       ├── CarEntityMapper.java
+    │   │       └── FormEntryEntityMapper.java
+    │   └── web
+    │       ├── dto
+    │       │   ├── CarDto.java
+    │       │   ├── CarRequestDto.java
+    │       │   ├── FormEntryDto.java
+    │       │   └── FormEntryRequestDto.java
+    │       └── mapper
+    │           ├── CarDtoMapper.java
+    │           └── FormEntryDtoMapper.java
+    └── web
+        ├── ApiErrorResponse.java
+        ├── GlobalExceptionHandler.java
+        └── controller
+            ├── CarController.java
+            └── FormEntryController.java
+```
+
