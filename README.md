@@ -225,4 +225,62 @@ The backend follows a layered architecture with clear separation of concerns: do
 ### Frontend
 The frontend is implemented as a focused React SPA. It uses React Router for a clear CRUD navigation flow and React Query for asynchronous data fetching and mutation state management. The UI is component-driven and keeps form logic reusable across create and edit screens. Estonian localization strings are centralized to maintain consistency.
 
+## Features
+
+Main application features include:
+
+* Car brands/models listing via API
+* Form entry creation with validation
+* Form entry editing
+* Form entry deletion
+* Form entry details view with resolved selected cars
+* Client-side session list of created entries
+* Global API error handling
+* Seeded startup data for easier first run
+
+## Testing
+
+```
+src/test
+	├── java
+	│   └── com
+	│       └── alaasmagi
+	│           └── car_brands_api
+	│               ├── ApplicationTest.java
+	│               ├── application
+	│               │   ├── CarServiceTest.java
+	│               │   └── FormEntryServiceTest.java
+	│               ├── data_access
+	│               │   ├── CarRepositoryTest.java
+	│               │   └── FormEntryRepositoryTest.java
+	│               ├── dto
+	│               │   └── web
+	│               │       └── dto
+	│               │           └── FormEntryRequestDtoValidationTest.java
+	│               └── web
+	│                   └── controller
+	│                       ├── CarControllerIntegrationTest.java
+	│                       └── FormEntryControllerIntegrationTest.java
+	└── manual api tests
+		├── opencollection.yml
+		├── cars
+		└── form-entries
+```
+
+Current backend test coverage is 97% (line + branch combined report in Gradle/JaCoCo reports).
+<img width="1222" height="343" alt="image" src="https://github.com/user-attachments/assets/661e8b54-a6b7-4ab7-9b8a-8415b57d05b5" />
+
+
+### Unit tests
+Unit tests focus on service and repository behavior to verify business rules and persistence correctness in isolation. Service tests cover core CRUD scenarios and edge cases for cars and form entries. Repository tests validate mapping and storage behavior, including entity relations.
+
+### Validation tests
+Dedicated DTO validation tests ensure that incoming request payloads for form entries respect required constraints and fail fast on invalid input.
+
+### Integration tests
+Controller integration tests verify HTTP layer behavior end-to-end (request handling, status codes, serialization, and integration with service/repository layers).
+
+### Manual API tests (via Bruno)
+Manual API tests are provided in `/car-brands-api/src/test/manual api tests`, covering both `cars` and `form-entries` endpoints via an OpenCollection setup.
+
   
