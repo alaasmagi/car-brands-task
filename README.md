@@ -204,4 +204,25 @@ src
 * **Types** - DTO and model typing for safer API and UI integration.
 * **Utils** - localized strings and helper utilities for UI logic.
 
+#### Components
+* **Form** - reusable form component for collecting full name, contact phone, driving license status, and selected car IDs.
+* **FormCard** - visual summary card for a form entry shown on the home list.
+
+#### Views
+* **Home** - displays session entries and allows navigation to create new form entries.
+* **Create** - allows users to create a new form entry.
+* **Details** - displays one form entry with selected car details and supports deletion.
+* **Edit** - allows updating an existing form entry.
+
+## Design choices
+
+### Database
+SQLite was chosen to keep setup simple and lightweight for local development and demonstration. UUID identifiers are used to reduce collision risk and keep IDs globally unique. The form-entry-to-car relation allows each form entry to reference multiple selected cars while keeping the domain model simple `selectedCarIds` and delegating relational mapping details to the data-access layer.
+
+### Backend
+The backend follows a layered architecture with clear separation of concerns: domain models contain core business data, application services hold business logic, repositories isolate persistence concerns, and web controllers expose HTTP endpoints. Additional DTO mapping layers are used to decouple API and persistence shapes from domain objects. This structure improves maintainability and makes refactoring safer.
+
+### Frontend
+The frontend is implemented as a focused React SPA. It uses React Router for a clear CRUD navigation flow and React Query for asynchronous data fetching and mutation state management. The UI is component-driven and keeps form logic reusable across create and edit screens. Estonian localization strings are centralized to maintain consistency.
+
   
