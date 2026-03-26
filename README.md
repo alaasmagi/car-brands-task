@@ -135,6 +135,5 @@ public class FormEntry {
 * **FormEntryService** -
 
 #### DTOs
-<img width="473" height="770" alt="image" src="https://github.com/user-attachments/assets/323da765-392a-4a8a-8766-df8ca320f933" />
-
+DTOs are used to separate external data structures from the core domain model. In the Web layer, request and response DTOs define the API contract and are mapped to domain objects before reaching the service layer. In the DataAccess layer, persistence models are mapped separately so database-specific structures do not leak into the domain or web layers. This keeps the architecture clean, reduces coupling between layers, and makes the application easier to maintain and evolve.
 
